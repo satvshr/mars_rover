@@ -6,7 +6,7 @@ import sys, os
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtUiTools import QUiLoader
 import sys, time
-from PySide6.QtWidgets import QApplication, QMainWindow, QTreeView
+from PySide6.QtWidgets import QApplication, QMainWindow, QTreeView, QRadioButton
 from PySide6.QtCore import  QThread
 from PySide6.QtGui import QFont, QColor, QImage, QStandardItemModel, QStandardItem
 import requests, os, sys, ezgmail, glob
@@ -35,7 +35,7 @@ class Image:
         self.sol = sol
         self.camera = camera
         self.date = date
-        self.site = f'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol={self.sol}&camera={self.camera}&earth_date={self.date}&api_key='
+        self.site = f'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?camera={self.camera}&earth_date={self.date}&api_key='
         self.api_key = 'udQJJYU8Kr2NOjyZaAryKkQtWeu1FiuoGQCQ8zGz'
         print(self.site+self.api_key)
         self.rec = requests.get(self.site+self.api_key)
@@ -88,10 +88,25 @@ class MyApp(QMainWindow, QWidget, Image):
         self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
 
         self.button = self.window.fetch_button
+        self.radio1 = self.window.curiosity
+        self.radio2 = self.window.opportunity
+        self.radio3 = self.window.spirit
+
+        self.radio1.clicked.connect(self.choice)
+        self.radio2.clicked.connect(self.choice)
+        self.radio3.clicked.connect(self.choice)
+
         self.button.clicked.connect(self.magic)
 
+    def choice(self):
+        if self.radio1.isChecked():
+            self.sol = "curiosity"
+        if self.radio2.isChecked():
+            self.sol = "opportunity"
+        if self.radio3.isChecked():
+            self.sol = "spirit"
+
     def magic(self):
-        self.sol = self.window.sol_name.text()
         self.camera = self.window.camera_name.text()
         self.date = self.window.date_name.text()
         self.loader = QUiLoader()
@@ -191,11 +206,11 @@ class MyApp(QMainWindow, QWidget, Image):
 app = QtWidgets.QApplication([])
 app.setStyleSheet('''
 #Form1 {
-  background-image: url(/home/satvshr/Desktop/env/105737338-1550085597458ap_19043627548529.jpg);
+  background-image: url(/home/satvshr/Desktop/env/wp2461890.jpg);
   background-repeat: no-repeat;
   background-position: center;
 }
-QLabel {
+#Form3 > QLabel {
     color: white;
     background-color: black;
 }
