@@ -59,9 +59,6 @@ class Image:
         print(self.lists)
 
     def send_mail(self, recipients, subject, body, attachment):
-        self.loader = QUiLoader()
-        self.window = self.loader.load("page6.ui", None)
-        self.window.show()
         self.final = recipients.split(',')
         print(self.final)
         self.sub = subject
@@ -99,10 +96,13 @@ class MyApp(QMainWindow, QWidget, Image):
         self.date = self.window.date_name.text()
         self.loader = QUiLoader()
         self.window = self.loader.load("page5.ui", None)
+        self.window.setWindowTitle('NASA Image retriever')
+        self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
         self.window.show()
         self.fetch(self.sol, self.camera, self.date)
         # for i in range(10):
         #     time.sleep(1)
+        # check bugs
         counter = 0
         flag = 0
         while flag == 0:
@@ -115,12 +115,21 @@ class MyApp(QMainWindow, QWidget, Image):
         print(self.sol, self.camera, self.date)
 
         self.window = self.loader.load("page2.ui", None)
+        self.window.setWindowTitle('NASA Image retriever')
+        self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
         self.window.show()
+
 
         self.display = self.window.label
         self.button1 = self.window.sendButton
         self.button2 = self.window.nextButton
         self.button3 = self.window.prevButton
+        if len(self.lists) == 0:
+            self.loader = QUiLoader()
+            self.window = self.loader.load("page5.ui", None)
+            self.window.setWindowTitle('NASA Image retriever')
+            self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
+            self.window.show()
         self.pixi = QPixmap(self.lists[0])
         self.window.label.setPixmap(self.pixi)
 
@@ -143,6 +152,8 @@ class MyApp(QMainWindow, QWidget, Image):
     def send(self):
         self.loader = QUiLoader()
         self.window = self.loader.load("page3.ui", None)
+        self.window.setWindowTitle('NASA Image retriever')
+        self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
         self.window.show()
 
         self.button4 = self.window.mailButton
@@ -152,7 +163,11 @@ class MyApp(QMainWindow, QWidget, Image):
             self.email = self.window.email_ids.toPlainText()
             self.sub = self.window.subject.toPlainText()
             self.body = self.window.body.toPlainText()
-
+            self.loader = QUiLoader()
+            self.window = self.loader.load("page6.ui", None)
+            self.window.setWindowTitle('NASA Image retriever')
+            self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
+            self.window.show()
             self.attachments = []
             path = '/home/satvshr/Desktop/mars/'
 
@@ -162,18 +177,49 @@ class MyApp(QMainWindow, QWidget, Image):
 
             self.loader = QUiLoader()
             self.window = self.loader.load("page4.ui", None)
+            self.window.setWindowTitle('NASA Image retriever')
+            self.window.setWindowIcon(QIcon('/home/satvshr/Downloads/nasa.jpg'))
             self.window.show()
             self.purge()
 
+        # except:
+        #     print("Email was not sent")
+
+
+
+
 app = QtWidgets.QApplication([])
-# app.setStyleSheet('''
-#     QWidget {
-#         font-size: 25px;
-#     }
-#     QPushButton {
-#         font-size: 20px;
-#     }
-# ''')
+app.setStyleSheet('''
+#Form1 {
+  background-image: url(/home/satvshr/Desktop/env/105737338-1550085597458ap_19043627548529.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+QLabel {
+    color: white;
+    background-color: black;
+}
+#Form3 {
+  background-image: url(/home/satvshr/Desktop/env/7834e50e9eb8821d3b44065064dffb92.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#Form4 {
+  background-image: url(/home/satvshr/Desktop/env/HD-wallpaper-nasa-logo-black-oled-nasa-logo-black-dark-oled.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#Form5 {
+  background-image: url(/home/satvshr/Desktop/env/icons8-spam-100.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#Form6 {
+  background-image: url(/home/satvshr/Desktop/env/icons8-spam-100.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+''')
 myapp = MyApp()
 myapp.window.show()
 sys.exit(app.exec())
