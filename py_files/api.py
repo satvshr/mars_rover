@@ -35,7 +35,7 @@ class Image:
         self.sol = sol
         self.camera = camera
         self.date = date
-        self.site = f'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?camera={self.camera}&earth_date={self.date}&api_key='
+        self.site = f'https://api.nasa.gov/mars-photos/api/v1/rovers/{self.sol}/photos?camera={self.camera}&earth_date={self.date}&api_key='
         self.api_key = 'udQJJYU8Kr2NOjyZaAryKkQtWeu1FiuoGQCQ8zGz'
         print(self.site+self.api_key)
         self.rec = requests.get(self.site+self.api_key)
