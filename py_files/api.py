@@ -215,7 +215,7 @@ app.setStyleSheet('''
     background-color: black;
 }
 #Form3 {
-  background-image: url(/home/satvshr/Desktop/env/7834e50e9eb8821d3b44065064dffb92.jpg);
+  background-image: url(/home/satvshr/Desktop/env/_120526773_whatsubject.jpg);
   background-repeat: no-repeat;
   background-position: center;
 }
